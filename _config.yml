@@ -1,0 +1,30 @@
+title: bpmn.io Docs
+remote_theme: pmarsceill/just-the-docs
+
+baseurl: "/docs.bpmn.io" # the subpath of your site, e.g. /blog
+url: "https://bpmn-io.github.io"
+
+logo: "/assets/images/bpmn-io.svg"
+
+aux_links:
+  "bpmn.io on GitHub":
+    - "//github.com/bpmn-io"
+
+footer_content: "<a href=\"https://bpmn.io\"> bpmn.io </a> is built and maintained by <a href=\"https://camunda.com\">Camunda</a> and contributors."
+back_to_top: true
+back_to_top_text: "Back to top"
+gh_edit_link: true # show or hide edit this page link
+gh_edit_link_text: "Edit this page on GitHub."
+gh_edit_repository: "https://github.com/bpmn-io/docs.bpmn.io"
+gh_edit_branch: "master"
+gh_edit_view_mode: "tree"
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
+
+color_scheme: bpmn-io

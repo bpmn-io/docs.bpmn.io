@@ -22,4 +22,5 @@ bundle exec jekyll serve
 This should take couple of minutes until the page is built and served in http://localhost:4000/docs.bpmn.io/
 
 **Note about search**
+    
 Pages added & removed from the docs should automatically be handled, so no need to do extra steps in order to take care of search functionality.

@@ -1,7 +1,6 @@
 title: bpmn.io Docs
 remote_theme: pmarsceill/just-the-docs
 
-baseurl: "/docs.bpmn.io" # the subpath of your site, e.g. /blog
 url: "https://bpmn-io.github.io"
 
 logo: "/assets/images/bpmn-io.svg"

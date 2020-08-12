@@ -1,12 +1,13 @@
 ---
 layout: default
-title: addRule 
+title: addRule
 nav_order: 2
 description: addRule Module
 permalink: /modules/dmn-decision-table-modules/add-rule
 last_modified_date: 2020-04-27T17:54:08+0000
 parent: "DMN Decision Table Modules"
 grand_parent: "Modules"
+search_exclude: true
 ---
 
 # addRule

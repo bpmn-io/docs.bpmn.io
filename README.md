@@ -48,3 +48,7 @@ These color variables may be modified to achieve custom themes inside [bpmn-io.s
     $table-background-color
     $feedback-color
 ```
+
+## Tip About Plugging Back DMN Content In
+
+In order to plug back the DMN related content in into the website, undo [this commit](https://github.com/bpmn-io/docs.bpmn.io/commit/df4c780fd1ced6a1e6ccf206c8df37d9a88ec197).

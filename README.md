@@ -19,7 +19,7 @@ Run the website:
 ```shell
 bundle exec jekyll serve
 ```
-This should take couple of minutes until the page is built and served in http://localhost:4000/docs.bpmn.io/
+This should take couple of minutes until the page is built and served in http://localhost:4000/
 
 **Note about search**
 

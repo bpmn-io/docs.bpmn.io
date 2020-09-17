@@ -10,3 +10,11 @@ grand_parent: "Examples"
 ---
 
 # Starter
+
+Try out our toolkit by downloading the [viewer](https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/master/starter/viewer.html) or [modeler](https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/master/starter/modeler.html) example.
+
+![image](/assets/images/starter.png)
+
+[Here's the repository for this example.](https://github.com/bpmn-io/bpmn-js-examples/tree/master/starter)
+
+_Screenshot of the [viewer example](https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/master/starter/viewer.html)._

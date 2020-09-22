@@ -17,9 +17,9 @@ gem install bundler jekyll
 
 Run the website:
 ```shell
-bundle exec jekyll serve
+bundle exec jekyll serve --incremental
 ```
-This should take couple of minutes until the page is built and served in http://localhost:4000/
+This should take couple of minutes until the page is built and served in http://localhost:4000/ Note that the incremental flag helps to build only the modified pages, which makes thing much faster in case we're modifying the content.
 
 **Note about search**
 

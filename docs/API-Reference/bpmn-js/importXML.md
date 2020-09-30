@@ -36,7 +36,7 @@ and rejecting with
 * `error` <br>
 An error containing additional `warnings` property which is an array of import warnings.
 
-### Code Example
+### Example Usage
 
 ```javascript
 // modeler is an instance of BpmnJS Modeler.

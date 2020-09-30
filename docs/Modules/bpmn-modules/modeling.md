@@ -28,7 +28,7 @@ Additional APIs over the common modeling module are:
 Updates labels and changes the names of elements. This API fires
 [elements.changed](/events/common-events/elements-changed) event and executes [element.updateLabel](/commands/bpmn-commands/element-updateLabel) command.
 
-### Usage
+### Example Usage
 
 updateLabel(element: _Shape_, newLabel: _String_, newBounds: _Object_, hints: _Object_): _undefined_
 
@@ -47,7 +47,7 @@ modeling.updateLabel(startEvent1, 'new label');
 
 Connects two shapes if allowed by the [BPMN rules](/modules/bpmn-modules/bpmn-rules). Uses [createConnection](/modules/common-modules/modeling#createconnection) internally.
 
-### Usage
+### Example Usage
 
 connect(source: _Shape_, target: _Shape_, attrs: _Object_, hints: _Object_): _Connection_
 
@@ -85,7 +85,7 @@ modeling.connect(sourceShape, targetShape, attrs, {
 
 Updates the properties of business object of given shape. This API executes [element.updateProperties](/commands/bpmn-commands/element-updateProperties) command.
 
-### Usage
+### Example Usage
 
 updateProperties(element: _Shape_, properties: _Object_): _undefined_
 
@@ -110,7 +110,7 @@ modeling.updateProperties(flowConnection, { name: 'new name' });
 
 Resizes BPMN lane objects. This API executes [lane.resize](/commands/bpmn-commands/lane-resize) command.
 
-### Usage
+### Example Usage
 
 resizeLane(laneShape: _Shape_, newBounds: _Object_, balanced: _Boolean_): _undefined_
 
@@ -136,7 +136,7 @@ modeling.resizeLane(laneShape, newBounds);
 
 Adds a lane shape to its parent (either Participant, Process or SubProcess). This API executes [lane.add](/commands/bpmn-commands/lane-add) command.
 
-### Usage
+### Example Usage
 
 addLane(targetLaneShape: _Shape_, location: _String_): _Shape_
 
@@ -157,7 +157,7 @@ const newLane = modeling.addLane(laneShape, location);
 
 Splits a participant into lanes. This API executes [lane.split](/commands/bpmn-commands/lane-split) command.
 
-### Usage
+### Example Usage
 
 splitLane(targetLane: _Shape_, count: _Integer_): _undefined_
 
@@ -177,7 +177,7 @@ modeling.splitLane(participantShape, 2);
 
 Sets/unsets the fill and stroke colors of given element(s). This API executes [element.setColor](/commands/bpmn-commands/element-setColor) command.
 
-### Usage
+### Example Usage
 
 setColor(elements: Array<_Shape_> or _Shape_, colors: _Object_): _undefined_
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: saveXML.done 
+title: saveXML.done
 nav_order: 14
 description: saveXML.done event
 permalink: /events/bpmn-events/saveXML-done
@@ -30,6 +30,5 @@ modeler.on('saveXML.done', (data) => {
 
 The data fired with this event contains these fields:
 
-`xml`: _[String](#)_ <br>
+* `xml`: _[String](#)_ <br>
 The exported BPMN 2.0 XML.
-

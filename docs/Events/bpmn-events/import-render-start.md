@@ -1,6 +1,6 @@
 ---
 layout: default
-title: import.render.start 
+title: import.render.start
 nav_order: 8
 description: import.render.start event
 permalink: /events/bpmn-events/import-render-start
@@ -30,5 +30,5 @@ modeler.on('import.render.start', (data) => {
 
 The data fired with this event contains these fields:
 
-`definitions`: _[ModdleElement](#)_  <br>
+* `definitions`: _[ModdleElement](#)_  <br>
 The definitions moddle element that is about to be rendered.

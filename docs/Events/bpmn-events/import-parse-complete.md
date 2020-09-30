@@ -1,6 +1,6 @@
 ---
 layout: default
-title: import.parse.complete 
+title: import.parse.complete
 nav_order: 5
 description: import.parse.complete event
 permalink: /events/bpmn-events/import-parse-complete
@@ -47,20 +47,20 @@ modeler.on('import.parse.complete', (data) => {
 
 The data fired with this event contains these fields:
 
-`xml`: _[String](#)_ <br>
+* `xml`: _[String](#)_ <br>
 The BPMN 2.0 XML that is about to be imported.
 
-`error`: _[Error](#)_<br>
+* `error`: _[Error](#)_<br>
 An error that got raised through the import.
 
-`definitions`: _[ModdleElement](#)_<br>
+* `definitions`: _[ModdleElement](#)_<br>
 The definitions moddle element that got imported from the BPMN 2.0 XML.
 
-`elementsById`: _[Object](#)_<br>
+* `elementsById`: _[Object](#)_<br>
 A map of elements referenced by their ids.
 
-`references`: _Array\<[ModdleElement](#)\>_<br>
+* `references`: _Array\<[ModdleElement](#)\>_<br>
 A list of referenced elements in the diagram.
 
-`warnings`: _Array\<[String](#)\>_ <br>
+* `warnings`: _Array\<[String](#)\>_ <br>
 A list of warnings that got raised during the import.

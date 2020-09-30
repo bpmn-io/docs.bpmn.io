@@ -1,6 +1,6 @@
 ---
 layout: default
-title: bpmnElement.added 
+title: bpmnElement.added
 nav_order: 2
 description: bpmnElement.added event
 permalink: /events/bpmn-events/bpmnElement-added
@@ -32,5 +32,5 @@ modeler.on('bpmnElement.added', (data) => {
 
 The data fired with this event contains these fields:
 
-`element`: _[ModdleElement](#)_ <br>
+* `element`: _[ModdleElement](#)_ <br>
 The element that is added to the canvas during import.

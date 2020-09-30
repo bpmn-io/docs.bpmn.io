@@ -1,6 +1,6 @@
 ---
 layout: default
-title: saveXML.serialized 
+title: saveXML.serialized
 nav_order: 15
 description: saveXML.serialized event
 permalink: /events/bpmn-events/saveXML-serialized
@@ -32,5 +32,5 @@ modeler.on('saveXML.serialized', (data) => {
 
 The data fired with this event contains these fields:
 
-`xml`: _[String](#)_ <br>
+* `xml`: _[String](#)_ <br>
 The serialized BPMN 2.0 XML.

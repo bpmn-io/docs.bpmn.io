@@ -1,6 +1,6 @@
 ---
 layout: default
-title: moddleCopy.canSetCopiedProperty 
+title: moddleCopy.canSetCopiedProperty
 nav_order: 11
 description: moddleCopy.canSetCopiedProperty event
 permalink: /events/bpmn-events/moddleCopy-canSetCopiedProperty
@@ -35,11 +35,11 @@ modeler.on('moddleCopy.canSetCopiedProperty', HIGH_PRIORITY, (data) => {
 
 The data fired with this event contains these fields:
 
-`parent`: _[ModdleElement](#)_  <br>
+* `parent`: _[ModdleElement](#)_  <br>
 The element that owns the property.
 
-`property`: _[String](#) | [ModdleElement](#)_ <br>
+* `property`: _[String](#) | [ModdleElement](#)_ <br>
 The property that is about to be set.
 
-`propertyName`: _[String](#)_ <br>
+* `propertyName`: _[String](#)_ <br>
 The name of the property in the parent element.

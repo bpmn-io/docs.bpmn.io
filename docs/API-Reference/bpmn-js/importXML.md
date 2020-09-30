@@ -19,18 +19,22 @@ importXML(xml: _String_, bpmnDiagram: _ModdleElement_ or _String_): Promise< res
 
 ### Parameters
 
-* `xml`: BPMN 2.0 XML string to import and render.
-* `bpmnDiagram`: BPMN diagram moddle element to render or id string of the diagram to render.
+* `xml` <br>
+BPMN 2.0 XML string to import and render.
+* `bpmnDiagram` <br>
+BPMN diagram moddle element to render or id string of the diagram to render.
 
 ### Return Value
 
 A Promise resolving with
 
-* `result`: An object containing `warnings` property which is an array of import warnings.
+* `result` <br>
+An object containing `warnings` property which is an array of import warnings.
 
 and rejecting with
 
-* `error`: An error containing additional `warnings` property which is an array of import warnings.
+* `error` <br>
+An error containing additional `warnings` property which is an array of import warnings.
 
 ### Code Example
 

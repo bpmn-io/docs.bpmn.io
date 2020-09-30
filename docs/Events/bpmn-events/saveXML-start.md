@@ -1,6 +1,6 @@
 ---
 layout: default
-title: saveXML.start 
+title: saveXML.start
 nav_order: 16
 description: saveXML.start event
 permalink: /events/bpmn-events/saveXML-start
@@ -36,5 +36,5 @@ modeler.on('saveXML.start', (data) => {
 
 The data fired with this event contains these fields:
 
-`definitions`: _[ModdleElement](#)_ <br>
+* `definitions`: _[ModdleElement](#)_ <br>
 The definitions moddle element that is about to be exported as BPMN 2.0 XML.

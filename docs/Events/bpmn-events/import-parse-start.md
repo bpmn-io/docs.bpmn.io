@@ -32,5 +32,5 @@ modeler.on('import.parse.start', (data) => {
 
 The data fired with this event contains these fields:
 
-`xml`: _[String](#)_  
+* `xml`: _[String](#)_ <br>
 The BPMN 2.0 XML that is about to be imported.

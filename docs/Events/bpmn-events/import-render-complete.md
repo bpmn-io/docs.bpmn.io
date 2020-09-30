@@ -1,6 +1,6 @@
 ---
 layout: default
-title: import.render.complete 
+title: import.render.complete
 nav_order: 7
 description: import.render.complete event
 permalink: /events/bpmn-events/import-render-complete
@@ -20,7 +20,7 @@ This event is fired by [importXML API](/general/api-reference/bpmn-js/importXML)
 
 modeler.on('import.render.complete', (data) => {
 
-  const { error, warnings } = data; 
+  const { error, warnings } = data;
 
   // check for error while importing the diagram
   if(error) {
@@ -38,8 +38,8 @@ modeler.on('import.render.complete', (data) => {
 
 The data fired with this event contains these fields:
 
-`error`: _[Error](#)_ <br>
+* `error`: _[Error](#)_ <br>
 An error that got raised during the import.
 
-`warnings`: _Array\<[String](#)\>_ <br>
+* `warnings`: _Array\<[String](#)\>_ <br>
 A list of warnings that got raised during the import.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: saveSVG.done 
+title: saveSVG.done
 nav_order: 12
 description: saveSVG.done event
 permalink: /events/bpmn-events/saveSVG-done
@@ -36,9 +36,8 @@ modeler.on('saveSVG.done', (data) => {
 
 The data fired with this event contains these fields:
 
-`error`: _[Error](#)_ <br>
+* `error`: _[Error](#)_ <br>
 An error that got raised during the export.
 
-`svg`: _[String](#)_ <br>
+* `svg`: _[String](#)_ <br>
 The SVG string that is exported.
-

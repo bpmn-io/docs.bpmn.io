@@ -1,6 +1,6 @@
 ---
 layout: default
-title: moddleCopy.canCopyProperty 
+title: moddleCopy.canCopyProperty
 nav_order: 10
 description: moddleCopy.canCopyProperty event
 permalink: /events/bpmn-events/moddleCopy-canCopyProperty
@@ -35,11 +35,11 @@ modeler.on('moddleCopy.canCopyProperty', HIGH_PRIORITY, (data) => {
 
 The data fired with this event contains these fields:
 
-`parent`: _[ModdleElement](#)_  <br>
+* `parent`: _[ModdleElement](#)_  <br>
 The element that owns the to be copied property.
 
-`property`: _[String](#) | [ModdleElement](#)_ <br>
+* `property`: _[String](#) | [ModdleElement](#)_ <br>
 The property that is about to be copied.
 
-`propertyName`: _[String](#)_ <br>
+* `propertyName`: _[String](#)_ <br>
 The name of the property in the parent element.

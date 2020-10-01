@@ -3,7 +3,8 @@ Welcome to docs.bpmn.io. This repository contains documentation for:
 
  - diagram-js
  - bpmn-js
- - dmn-js libraries.
+ - dmn-js 
+    libraries.
 
 ## Running Locally
 This repository is based on [Jekyll](https://jekyllrb.com/) and hosted via [Github Pages](https://bpmn-io.github.io/docs.bpmn.io/). To run locally:

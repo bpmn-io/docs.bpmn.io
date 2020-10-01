@@ -3,9 +3,7 @@ Welcome to docs.bpmn.io. This repository contains documentation for:
 
  - diagram-js
  - bpmn-js
- - dmn-js
-
-libraries.
+ - dmn-js libraries.
 
 ## Running Locally
 This repository is based on [Jekyll](https://jekyllrb.com/) and hosted via [Github Pages](https://bpmn-io.github.io/docs.bpmn.io/). To run locally:
@@ -19,11 +17,11 @@ Run the website:
 ```shell
 bundle exec jekyll serve --incremental
 ```
-This should take couple of minutes until the page is built and served in http://localhost:4000/ Note that the incremental flag helps to build only the modified pages, which makes thing much faster in case we're modifying the content.
+This should take couple of minutes until the page is built and served in http://localhost:4000/ Note that the incremental flag helps to build only the modified pages, which makes things much faster in case we're modifying the content.
 
 **Note about search**
 
-Pages added & removed from the docs should automatically be handled, so no need to do extra steps in order to take care of search functionality.
+Pages added & removed from the docs should automatically be handled, so no need to do extra steps in order to take care of the search functionality.
 
 ## Playing With Colors :art:
 

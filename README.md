@@ -8,7 +8,7 @@ Welcome to docs.bpmn.io. This repository contains documentation for:
 libraries.
 
 ## Running Locally
-This repository is based on [Jekyll](https://jekyllrb.com/) and hosted via [Github Pages](https://bpmn-io.github.io/docs.bpmn.io/). To run locally:
+This repository is based on [Jekyll](https://jekyllrb.com/) and hosted via [GitHub Pages](https://bpmn-io.github.io/docs.bpmn.io/). To run locally:
 
 Install bundler if not installed before:
 ```shell

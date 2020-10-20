@@ -25,7 +25,7 @@ This example uses bpmn-js to embed the [pizza collaboration](http://demo.bpmn.io
 
 ## Usage Summary
 
-Install bpmn-js via [npm](http://npmjs.org)
+Install [bpmn-js](https://github.com/bpmn-io/bpmn-js) via [npm](http://npmjs.org)
 
 ```
 npm install --save bpmn-js

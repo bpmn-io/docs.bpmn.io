@@ -66,7 +66,7 @@ CustomViewer.prototype._modules = [].concat(
 );
 ```
 
-Package the file as UMD for the browser, using a module bundler such as [Rollup](https://rollupjs.org/), [Browserify](https://browserify.org) or Webpack.
+Package the file as UMD for the browser, using a module bundler such as [Rollup](https://rollupjs.org/), [Browserify](https://browserify.org) or [Webpack](https://webpack.js.org/).
 
 We're using rollup to bundle the files based on [this configuration](./rollup.config.js):
 

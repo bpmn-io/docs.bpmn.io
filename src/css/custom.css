@@ -82,3 +82,7 @@ iframe {
   border-radius: 4px;
   overflow: hidden;
 }
+
+.bpmn-io-category {
+  color: var(--ifm-color-gray-700);
+}

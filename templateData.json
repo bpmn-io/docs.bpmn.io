@@ -1,0 +1,4431 @@
+[
+  {
+    "id": "Base()",
+    "longname": "Base",
+    "name": "Base",
+    "kind": "constructor",
+    "description": "The basic graphical representation",
+    "memberof": "Base",
+    "order": 1
+  },
+  {
+    "id": "Shape()",
+    "longname": "Shape",
+    "name": "Shape",
+    "kind": "constructor",
+    "description": "A graphical object",
+    "memberof": "Shape",
+    "order": 9
+  },
+  {
+    "id": "Root()",
+    "longname": "Root",
+    "name": "Root",
+    "kind": "constructor",
+    "description": "A root graphical object",
+    "memberof": "Root",
+    "order": 15
+  },
+  {
+    "id": "Label()",
+    "longname": "Label",
+    "name": "Label",
+    "kind": "constructor",
+    "description": "A label for an element",
+    "memberof": "Label",
+    "order": 17
+  },
+  {
+    "id": "Connection()",
+    "longname": "Connection",
+    "name": "Connection",
+    "kind": "constructor",
+    "description": "A connection between two elements",
+    "memberof": "Connection",
+    "order": 20
+  },
+  {
+    "id": "Canvas()",
+    "longname": "Canvas",
+    "name": "Canvas",
+    "kind": "constructor",
+    "description": "The main drawing canvas.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "config"
+      },
+      {
+        "type": {
+          "names": [
+            "module:EventBus"
+          ]
+        },
+        "name": "eventBus"
+      },
+      {
+        "type": {
+          "names": [
+            "module:GraphicsFactory"
+          ]
+        },
+        "name": "graphicsFactory"
+      },
+      {
+        "type": {
+          "names": [
+            "module:ElementRegistry"
+          ]
+        },
+        "name": "elementRegistry"
+      }
+    ],
+    "order": 26
+  },
+  {
+    "id": "ElementFactory()",
+    "longname": "ElementFactory",
+    "name": "ElementFactory",
+    "kind": "constructor",
+    "description": "A factory for diagram-js shapes.",
+    "memberof": "ElementFactory",
+    "order": 70
+  },
+  {
+    "id": "ElementRegistry()",
+    "longname": "ElementRegistry",
+    "name": "ElementRegistry",
+    "kind": "constructor",
+    "description": "A registry that keeps track of all shapes in the diagram.",
+    "memberof": "ElementRegistry",
+    "order": 77
+  },
+  {
+    "id": "EventBus()",
+    "longname": "EventBus",
+    "name": "EventBus",
+    "kind": "constructor",
+    "description": "A general purpose event bus.\n\nThis component is used to communicate across a diagram instance.\nOther parts of a diagram can use it to listen to and broadcast events.\n\n\n## Registering for Events\n\nThe event bus provides the {@link EventBus#on} and {@link EventBus#once}\nmethods to register for events. {@link EventBus#off} can be used to\nremove event registrations. Listeners receive an instance of {@link Event}\nas the first argument. It allows them to hook into the event execution.\n\n```javascript\n\n// listen for event\neventBus.on('foo', function(event) {\n\n  // access event type\n  event.type; // 'foo'\n\n  // stop propagation to other listeners\n  event.stopPropagation();\n\n  // prevent event default\n  event.preventDefault();\n});\n\n// listen for event with custom payload\neventBus.on('bar', function(event, payload) {\n  console.log(payload);\n});\n\n// listen for event returning value\neventBus.on('foobar', function(event) {\n\n  // stop event propagation + prevent default\n  return false;\n\n  // stop event propagation + return custom result\n  return {\n    complex: 'listening result'\n  };\n});\n\n\n// listen with custom priority (default=1000, higher is better)\neventBus.on('priorityfoo', 1500, function(event) {\n  console.log('invoked first!');\n});\n\n\n// listen for event and pass the context (`this`)\neventBus.on('foobar', function(event) {\n  this.foo();\n}, this);\n```\n\n\n## Emitting Events\n\nEvents can be emitted via the event bus using {@link EventBus#fire}.\n\n```javascript\n\n// false indicates that the default action\n// was prevented by listeners\nif (eventBus.fire('foo') === false) {\n  console.log('default has been prevented!');\n};\n\n\n// custom args + return value listener\neventBus.on('sum', function(event, a, b) {\n  return a + b;\n});\n\n// you can pass custom arguments + retrieve result values.\nvar sum = eventBus.fire('sum', 1, 2);\nconsole.log(sum); // 3\n```",
+    "memberof": "EventBus",
+    "order": 90
+  },
+  {
+    "id": "GraphicsFactory()",
+    "longname": "GraphicsFactory",
+    "name": "GraphicsFactory",
+    "kind": "constructor",
+    "description": "A factory that creates graphical elements",
+    "memberof": "GraphicsFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "EventBus"
+          ]
+        },
+        "name": "eventBus"
+      },
+      {
+        "type": {
+          "names": [
+            "ElementRegistry"
+          ]
+        },
+        "name": "elementRegistry"
+      }
+    ],
+    "order": 99
+  },
+  {
+    "id": "Modeling()",
+    "longname": "Modeling",
+    "name": "Modeling",
+    "kind": "constructor",
+    "description": "The basic modeling entry point.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "module:EventBus"
+          ]
+        },
+        "name": "eventBus"
+      },
+      {
+        "type": {
+          "names": [
+            "module:ElementFactory"
+          ]
+        },
+        "name": "elementFactory"
+      },
+      {
+        "type": {
+          "names": [
+            "undefined"
+          ]
+        },
+        "name": "commandStack"
+      }
+    ],
+    "order": 103
+  },
+  {
+    "id": "Modeling()",
+    "longname": "Modeling",
+    "name": "Modeling",
+    "kind": "constructor",
+    "description": "BPMN 2.0 modeling features activator",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "module:diagram-js/lib/core/EventBus"
+          ]
+        },
+        "name": "eventBus"
+      },
+      {
+        "type": {
+          "names": [
+            "undefined"
+          ]
+        },
+        "name": "elementFactory"
+      },
+      {
+        "type": {
+          "names": [
+            "module:diagram-js/lib/core/CommandStack"
+          ]
+        },
+        "name": "commandStack"
+      },
+      {
+        "type": {
+          "names": [
+            "undefined"
+          ]
+        },
+        "name": "bpmnRules"
+      }
+    ],
+    "order": 112
+  },
+  {
+    "id": "create",
+    "longname": "create",
+    "name": "create",
+    "kind": "function",
+    "scope": "global",
+    "description": "Creates a new model element of the specified type",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "lower-cased model name",
+        "name": "type"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "attributes to initialize the new model instance with",
+        "name": "attrs"
+      }
+    ],
+    "examples": [
+      "var shape1 = Model.create('shape', { x: 10, y: 10, width: 100, height: 100 });\nvar shape2 = Model.create('shape', { x: 210, y: 210, width: 100, height: 100 });\n\nvar connection = Model.create('connection', { waypoints: [ { x: 110, y: 55 }, {x: 210, y: 55 } ] });"
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Base"
+          ]
+        },
+        "description": "the new model instance"
+      }
+    ],
+    "meta": {
+      "lineno": 219,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 23
+  },
+  {
+    "id": "createContainer",
+    "longname": "createContainer",
+    "name": "createContainer",
+    "kind": "function",
+    "scope": "global",
+    "description": "Creates a HTML container element for a SVG element with\nthe given configuration",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "options"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "HTMLElement"
+          ]
+        },
+        "description": "the container element"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 66,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 24
+  },
+  {
+    "id": "InternalEvent",
+    "longname": "InternalEvent",
+    "name": "InternalEvent",
+    "kind": "function",
+    "scope": "global",
+    "description": "A event that is emitted via the event bus.",
+    "params": [],
+    "access": "private",
+    "meta": {
+      "lineno": 501,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 96
+  },
+  {
+    "id": "invokeFunction",
+    "longname": "invokeFunction",
+    "name": "invokeFunction",
+    "kind": "function",
+    "scope": "global",
+    "description": "Invoke function. Be fast...",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "fn"
+      },
+      {
+        "type": {
+          "names": [
+            "Array.<Object>"
+          ]
+        },
+        "name": "args"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Any"
+          ]
+        }
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 526,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 97
+  },
+  {
+    "id": "Modeling",
+    "longname": "Modeling",
+    "name": "Modeling",
+    "kind": "class",
+    "scope": "global",
+    "augments": [
+      "diagram-js:Modeling"
+    ],
+    "alias": "bpmn-js:Modeling",
+    "category": "bpmn-js",
+    "meta": {
+      "lineno": 18,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\bpmn-js\\lib\\features\\modeling"
+    },
+    "order": 111
+  },
+  {
+    "id": "Base",
+    "longname": "Base",
+    "name": "Base",
+    "kind": "class",
+    "meta": {
+      "lineno": 14,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "virtual": true,
+    "scope": "global",
+    "category": "diagram-js",
+    "order": 0
+  },
+  {
+    "id": "Shape",
+    "longname": "Shape",
+    "name": "Shape",
+    "kind": "class",
+    "scope": "global",
+    "classdesc": null,
+    "augments": [
+      "Base"
+    ],
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 93,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 8
+  },
+  {
+    "id": "Root",
+    "longname": "Root",
+    "name": "Root",
+    "kind": "class",
+    "scope": "global",
+    "classdesc": null,
+    "augments": [
+      "Shape"
+    ],
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 137,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 14
+  },
+  {
+    "id": "Label",
+    "longname": "Label",
+    "name": "Label",
+    "kind": "class",
+    "scope": "global",
+    "classdesc": null,
+    "augments": [
+      "Shape"
+    ],
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 154,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 16
+  },
+  {
+    "id": "Connection",
+    "longname": "Connection",
+    "name": "Connection",
+    "kind": "class",
+    "scope": "global",
+    "classdesc": null,
+    "augments": [
+      "Base"
+    ],
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 179,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 19
+  },
+  {
+    "id": "Canvas",
+    "longname": "Canvas",
+    "name": "Canvas",
+    "kind": "class",
+    "scope": "global",
+    "fires": [
+      "Canvas#canvas.event:init"
+    ],
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 115,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 25
+  },
+  {
+    "id": "ElementFactory",
+    "longname": "ElementFactory",
+    "name": "ElementFactory",
+    "kind": "class",
+    "scope": "global",
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 7,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 69
+  },
+  {
+    "id": "ElementRegistry",
+    "longname": "ElementRegistry",
+    "name": "ElementRegistry",
+    "kind": "class",
+    "scope": "global",
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 6,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 76
+  },
+  {
+    "id": "EventBus",
+    "longname": "EventBus",
+    "name": "EventBus",
+    "kind": "class",
+    "scope": "global",
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 15,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 89
+  },
+  {
+    "id": "GraphicsFactory",
+    "longname": "GraphicsFactory",
+    "name": "GraphicsFactory",
+    "kind": "class",
+    "scope": "global",
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 27,
+      "filename": "GraphicsFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 98
+  },
+  {
+    "id": "Modeling",
+    "longname": "Modeling",
+    "name": "Modeling",
+    "kind": "class",
+    "scope": "global",
+    "alias": "diagram-js:Modeling",
+    "category": "diagram-js",
+    "meta": {
+      "lineno": 34,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 102
+  },
+  {
+    "id": "Base#businessObject",
+    "longname": "Base#businessObject",
+    "name": "businessObject",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The object that backs up the shape",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 25,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 2
+  },
+  {
+    "id": "Base#label",
+    "longname": "Base#label",
+    "name": "label",
+    "kind": "member",
+    "scope": "instance",
+    "description": "Single label support, will mapped to multi label array",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 36,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 3
+  },
+  {
+    "id": "Base#parent",
+    "longname": "Base#parent",
+    "name": "parent",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The parent shape",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 59,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 4
+  },
+  {
+    "id": "Base#labels",
+    "longname": "Base#labels",
+    "name": "labels",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The list of labels",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Label"
+      ]
+    },
+    "meta": {
+      "lineno": 67,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 5
+  },
+  {
+    "id": "Base#outgoing",
+    "longname": "Base#outgoing",
+    "name": "outgoing",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The list of outgoing connections",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 75,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 6
+  },
+  {
+    "id": "Base#incoming",
+    "longname": "Base#incoming",
+    "name": "incoming",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The list of incoming connections",
+    "memberof": "Base",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 83,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 7
+  },
+  {
+    "id": "Shape#isFrame",
+    "longname": "Shape#isFrame",
+    "name": "isFrame",
+    "kind": "member",
+    "scope": "instance",
+    "description": "Indicates frame shapes",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "boolean"
+      ]
+    },
+    "meta": {
+      "lineno": 106,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 10
+  },
+  {
+    "id": "Shape#children",
+    "longname": "Shape#children",
+    "name": "children",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The list of children",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Array.<Base>"
+      ]
+    },
+    "meta": {
+      "lineno": 113,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 11
+  },
+  {
+    "id": "Shape#host",
+    "longname": "Shape#host",
+    "name": "host",
+    "kind": "member",
+    "scope": "instance",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 121,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 12
+  },
+  {
+    "id": "Shape#attachers",
+    "longname": "Shape#attachers",
+    "name": "attachers",
+    "kind": "member",
+    "scope": "instance",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 127,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 13
+  },
+  {
+    "id": "Label#labelTarget",
+    "longname": "Label#labelTarget",
+    "name": "labelTarget",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The labeled element",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Base"
+      ]
+    },
+    "meta": {
+      "lineno": 167,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 18
+  },
+  {
+    "id": "Connection#source",
+    "longname": "Connection#source",
+    "name": "source",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The element this connection originates from",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Base"
+      ]
+    },
+    "meta": {
+      "lineno": 192,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 21
+  },
+  {
+    "id": "Connection#target",
+    "longname": "Connection#target",
+    "name": "target",
+    "kind": "member",
+    "scope": "instance",
+    "description": "The element this connection points to",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Base"
+      ]
+    },
+    "meta": {
+      "lineno": 200,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 22
+  },
+  {
+    "id": "Shape#businessObject",
+    "longname": "Shape#businessObject",
+    "name": "businessObject",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#businessObject",
+    "inherited": true,
+    "description": "The object that backs up the shape",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 25,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 115
+  },
+  {
+    "id": "Shape#label",
+    "longname": "Shape#label",
+    "name": "label",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#label",
+    "inherited": true,
+    "description": "Single label support, will mapped to multi label array",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 36,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 116
+  },
+  {
+    "id": "Shape#parent",
+    "longname": "Shape#parent",
+    "name": "parent",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#parent",
+    "inherited": true,
+    "description": "The parent shape",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 59,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 117
+  },
+  {
+    "id": "Shape#labels",
+    "longname": "Shape#labels",
+    "name": "labels",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#labels",
+    "inherited": true,
+    "description": "The list of labels",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Label"
+      ]
+    },
+    "meta": {
+      "lineno": 67,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 118
+  },
+  {
+    "id": "Shape#outgoing",
+    "longname": "Shape#outgoing",
+    "name": "outgoing",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#outgoing",
+    "inherited": true,
+    "description": "The list of outgoing connections",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 75,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 119
+  },
+  {
+    "id": "Shape#incoming",
+    "longname": "Shape#incoming",
+    "name": "incoming",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#incoming",
+    "inherited": true,
+    "description": "The list of incoming connections",
+    "memberof": "Shape",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 83,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 120
+  },
+  {
+    "id": "Root#isFrame",
+    "longname": "Root#isFrame",
+    "name": "isFrame",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#isFrame",
+    "inherited": true,
+    "description": "Indicates frame shapes",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "boolean"
+      ]
+    },
+    "meta": {
+      "lineno": 106,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 121
+  },
+  {
+    "id": "Root#children",
+    "longname": "Root#children",
+    "name": "children",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#children",
+    "inherited": true,
+    "description": "The list of children",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Array.<Base>"
+      ]
+    },
+    "meta": {
+      "lineno": 113,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 122
+  },
+  {
+    "id": "Root#host",
+    "longname": "Root#host",
+    "name": "host",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#host",
+    "inherited": true,
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 121,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 123
+  },
+  {
+    "id": "Root#attachers",
+    "longname": "Root#attachers",
+    "name": "attachers",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#attachers",
+    "inherited": true,
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 127,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 124
+  },
+  {
+    "id": "Root#businessObject",
+    "longname": "Root#businessObject",
+    "name": "businessObject",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#businessObject",
+    "inherited": true,
+    "description": "The object that backs up the shape",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 25,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 125
+  },
+  {
+    "id": "Root#label",
+    "longname": "Root#label",
+    "name": "label",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#label",
+    "inherited": true,
+    "description": "Single label support, will mapped to multi label array",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 36,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 126
+  },
+  {
+    "id": "Root#parent",
+    "longname": "Root#parent",
+    "name": "parent",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#parent",
+    "inherited": true,
+    "description": "The parent shape",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 59,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 127
+  },
+  {
+    "id": "Root#labels",
+    "longname": "Root#labels",
+    "name": "labels",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#labels",
+    "inherited": true,
+    "description": "The list of labels",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Label"
+      ]
+    },
+    "meta": {
+      "lineno": 67,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 128
+  },
+  {
+    "id": "Root#outgoing",
+    "longname": "Root#outgoing",
+    "name": "outgoing",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#outgoing",
+    "inherited": true,
+    "description": "The list of outgoing connections",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 75,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 129
+  },
+  {
+    "id": "Root#incoming",
+    "longname": "Root#incoming",
+    "name": "incoming",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#incoming",
+    "inherited": true,
+    "description": "The list of incoming connections",
+    "memberof": "Root",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 83,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 130
+  },
+  {
+    "id": "Label#isFrame",
+    "longname": "Label#isFrame",
+    "name": "isFrame",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#isFrame",
+    "inherited": true,
+    "description": "Indicates frame shapes",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "boolean"
+      ]
+    },
+    "meta": {
+      "lineno": 106,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 131
+  },
+  {
+    "id": "Label#children",
+    "longname": "Label#children",
+    "name": "children",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#children",
+    "inherited": true,
+    "description": "The list of children",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Array.<Base>"
+      ]
+    },
+    "meta": {
+      "lineno": 113,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 132
+  },
+  {
+    "id": "Label#host",
+    "longname": "Label#host",
+    "name": "host",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#host",
+    "inherited": true,
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 121,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 133
+  },
+  {
+    "id": "Label#attachers",
+    "longname": "Label#attachers",
+    "name": "attachers",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Shape#attachers",
+    "inherited": true,
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 127,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 134
+  },
+  {
+    "id": "Label#businessObject",
+    "longname": "Label#businessObject",
+    "name": "businessObject",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#businessObject",
+    "inherited": true,
+    "description": "The object that backs up the shape",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 25,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 135
+  },
+  {
+    "id": "Label#label",
+    "longname": "Label#label",
+    "name": "label",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#label",
+    "inherited": true,
+    "description": "Single label support, will mapped to multi label array",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 36,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 136
+  },
+  {
+    "id": "Label#parent",
+    "longname": "Label#parent",
+    "name": "parent",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#parent",
+    "inherited": true,
+    "description": "The parent shape",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 59,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 137
+  },
+  {
+    "id": "Label#labels",
+    "longname": "Label#labels",
+    "name": "labels",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#labels",
+    "inherited": true,
+    "description": "The list of labels",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Label"
+      ]
+    },
+    "meta": {
+      "lineno": 67,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 138
+  },
+  {
+    "id": "Label#outgoing",
+    "longname": "Label#outgoing",
+    "name": "outgoing",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#outgoing",
+    "inherited": true,
+    "description": "The list of outgoing connections",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 75,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 139
+  },
+  {
+    "id": "Label#incoming",
+    "longname": "Label#incoming",
+    "name": "incoming",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#incoming",
+    "inherited": true,
+    "description": "The list of incoming connections",
+    "memberof": "Label",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 83,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 140
+  },
+  {
+    "id": "Connection#businessObject",
+    "longname": "Connection#businessObject",
+    "name": "businessObject",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#businessObject",
+    "inherited": true,
+    "description": "The object that backs up the shape",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 25,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 141
+  },
+  {
+    "id": "Connection#label",
+    "longname": "Connection#label",
+    "name": "label",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#label",
+    "inherited": true,
+    "description": "Single label support, will mapped to multi label array",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "meta": {
+      "lineno": 36,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 142
+  },
+  {
+    "id": "Connection#parent",
+    "longname": "Connection#parent",
+    "name": "parent",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#parent",
+    "inherited": true,
+    "description": "The parent shape",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Shape"
+      ]
+    },
+    "meta": {
+      "lineno": 59,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 143
+  },
+  {
+    "id": "Connection#labels",
+    "longname": "Connection#labels",
+    "name": "labels",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#labels",
+    "inherited": true,
+    "description": "The list of labels",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Label"
+      ]
+    },
+    "meta": {
+      "lineno": 67,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 144
+  },
+  {
+    "id": "Connection#outgoing",
+    "longname": "Connection#outgoing",
+    "name": "outgoing",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#outgoing",
+    "inherited": true,
+    "description": "The list of outgoing connections",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 75,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 145
+  },
+  {
+    "id": "Connection#incoming",
+    "longname": "Connection#incoming",
+    "name": "incoming",
+    "kind": "member",
+    "scope": "instance",
+    "inherits": "Base#incoming",
+    "inherited": true,
+    "description": "The list of incoming connections",
+    "memberof": "Connection",
+    "type": {
+      "names": [
+        "Array.<Connection>"
+      ]
+    },
+    "meta": {
+      "lineno": 83,
+      "filename": "index.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\model"
+    },
+    "order": 146
+  },
+  {
+    "id": "Canvas#_init",
+    "longname": "Canvas#_init",
+    "name": "_init",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Creates a <svg> element that is wrapped into a <div>.\nThis way we are always able to correctly figure out the size of the svg element\nby querying the parent node.\n(It is not possible to get the size of a svg element cross browser @ 2014-04-01)\n<div class=\"djs-container\" style=\"width: {desired-width}, height: {desired-height}\">\n  <svg width=\"100%\" height=\"100%\">\n   ...\n  </svg>\n</div>",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "config"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 168,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 27
+  },
+  {
+    "id": "Canvas#_destroy",
+    "longname": "Canvas#_destroy",
+    "name": "_destroy",
+    "kind": "function",
+    "scope": "instance",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "name": "emit"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 230,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 29
+  },
+  {
+    "id": "Canvas#_clear",
+    "longname": "Canvas#_clear",
+    "name": "_clear",
+    "kind": "function",
+    "scope": "instance",
+    "memberof": "Canvas",
+    "access": "private",
+    "meta": {
+      "lineno": 253,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 30
+  },
+  {
+    "id": "Canvas#getDefaultLayer",
+    "longname": "Canvas#getDefaultLayer",
+    "name": "getDefaultLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the default layer on which\nall elements are drawn.",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 282,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 31
+  },
+  {
+    "id": "Canvas#getLayer",
+    "longname": "Canvas#getLayer",
+    "name": "getLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns a layer that is used to draw elements\nor annotations on it.\n\nNon-existing layers retrieved through this method\nwill be created. During creation, the optional index\nmay be used to create layers below or above existing layers.\nA layer with a certain index is always created above all\nexisting layers with the same index.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "name"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "name": "index"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 301,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 32
+  },
+  {
+    "id": "Canvas#_getChildIndex",
+    "longname": "Canvas#_getChildIndex",
+    "name": "_getChildIndex",
+    "kind": "function",
+    "scope": "instance",
+    "description": "For a given index, return the number of layers that have a higher index and\nare visible.\n\nThis is used to determine the node a layer should be inserted at.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "name": "index"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        }
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 334,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 33
+  },
+  {
+    "id": "Canvas#_createLayer",
+    "longname": "Canvas#_createLayer",
+    "name": "_createLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Creates a given layer and returns it.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "name"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": 0,
+        "name": "index"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "layer descriptor with { index, group: SVGGroup }"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 354,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 34
+  },
+  {
+    "id": "Canvas#showLayer",
+    "longname": "Canvas#showLayer",
+    "name": "showLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Shows a given layer.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "String"
+          ]
+        },
+        "name": "layer"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 377,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 35
+  },
+  {
+    "id": "Canvas#hideLayer",
+    "longname": "Canvas#hideLayer",
+    "name": "hideLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Hides a given layer.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "String"
+          ]
+        },
+        "name": "layer"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 413,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 36
+  },
+  {
+    "id": "Canvas#getActiveLayer",
+    "longname": "Canvas#getActiveLayer",
+    "name": "getActiveLayer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the currently active layer. Can be null.",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement",
+            "null"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 455,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 37
+  },
+  {
+    "id": "Canvas#findRoot",
+    "longname": "Canvas#findRoot",
+    "name": "findRoot",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the plane which contains the given element.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "description": "root for element"
+      }
+    ],
+    "meta": {
+      "lineno": 473,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 38
+  },
+  {
+    "id": "Canvas#getRootElements",
+    "longname": "Canvas#getRootElements",
+    "name": "getRootElements",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return a list of all root elements on the diagram.",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Array.<djs.model.Root>"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 494,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 39
+  },
+  {
+    "id": "Canvas#getContainer",
+    "longname": "Canvas#getContainer",
+    "name": "getContainer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the html element that encloses the\ndrawing canvas.",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "DOMNode"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 513,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 40
+  },
+  {
+    "id": "Canvas#addMarker",
+    "longname": "Canvas#addMarker",
+    "name": "addMarker",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Adds a marker to an element (basically a css class).\n\nFires the element.marker.update event, making it possible to\nintegrate extension into the marker life-cycle, too.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "marker"
+      }
+    ],
+    "examples": [
+      "canvas.addMarker('foo', 'some-marker');\n\nconst fooGfx = canvas.getGraphics('foo');\n\nfooGfx; // <g class=\"... some-marker\"> ... </g>"
+    ],
+    "meta": {
+      "lineno": 576,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 42
+  },
+  {
+    "id": "Canvas#removeMarker",
+    "longname": "Canvas#removeMarker",
+    "name": "removeMarker",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Remove a marker from an element.\n\nFires the element.marker.update event, making it possible to\nintegrate extension into the marker life-cycle, too.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "marker"
+      }
+    ],
+    "meta": {
+      "lineno": 590,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 43
+  },
+  {
+    "id": "Canvas#hasMarker",
+    "longname": "Canvas#hasMarker",
+    "name": "hasMarker",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Check the existence of a marker on element.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "marker"
+      }
+    ],
+    "meta": {
+      "lineno": 600,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 44
+  },
+  {
+    "id": "Canvas#toggleMarker",
+    "longname": "Canvas#toggleMarker",
+    "name": "toggleMarker",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Toggles a marker on an element.\n\nFires the element.marker.update event, making it possible to\nintegrate extension into the marker life-cycle, too.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "marker"
+      }
+    ],
+    "meta": {
+      "lineno": 619,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 45
+  },
+  {
+    "id": "Canvas#getRootElement",
+    "longname": "Canvas#getRootElement",
+    "name": "getRootElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the current root element.\n\nSupports two different modes for handling root elements:\n\n1. if no root element has been added before, an implicit root will be added\nand returned. This is used in applications that don't require explicit\nroot elements.\n\n2. when root elements have been added before calling `getRootElement`,\nroot elements can be null. This is used for applications that want to manage\nroot elements themselves.",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root",
+            "null"
+          ]
+        },
+        "description": "rootElement."
+      }
+    ],
+    "meta": {
+      "lineno": 642,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 46
+  },
+  {
+    "id": "Canvas#addRootElement",
+    "longname": "Canvas#addRootElement",
+    "name": "addRootElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Adds a given root element and returns it.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root"
+          ]
+        },
+        "name": "rootElement"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root"
+          ]
+        },
+        "description": "rootElement"
+      }
+    ],
+    "meta": {
+      "lineno": 661,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 47
+  },
+  {
+    "id": "Canvas#removeRootElement",
+    "longname": "Canvas#removeRootElement",
+    "name": "removeRootElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Removes a given rootElement and returns it.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Root",
+            "String"
+          ]
+        },
+        "name": "rootElement"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root"
+          ]
+        },
+        "description": "rootElement"
+      }
+    ],
+    "meta": {
+      "lineno": 697,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 48
+  },
+  {
+    "id": "Canvas#setRootElement",
+    "longname": "Canvas#setRootElement",
+    "name": "setRootElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Sets a given element as the new root element for the canvas\nand returns the new root element.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root"
+          ]
+        },
+        "name": "rootElement"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Root"
+          ]
+        },
+        "description": "new root element"
+      }
+    ],
+    "meta": {
+      "lineno": 739,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 49
+  },
+  {
+    "id": "Canvas#_addElement",
+    "longname": "Canvas#_addElement",
+    "name": "_addElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Adds an element to the canvas.\n\nThis wires the parent <-> child relationship between the element and\na explicitly specified parent or an implicit root element.\n\nDuring add it emits the events\n\n * <{type}.add> (element, parent)\n * <{type}.added> (element, gfx)\n\nExtensions may hook into these events to perform their magic.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "type"
+      },
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "parent"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "parentIndex"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Base"
+          ]
+        },
+        "description": "the added element"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 874,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 50
+  },
+  {
+    "id": "Canvas#addShape",
+    "longname": "Canvas#addShape",
+    "name": "addShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Adds a shape to the canvas",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Shape"
+          ]
+        },
+        "description": "to add to the diagram",
+        "name": "shape"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "parent"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "parentIndex"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the added shape"
+      }
+    ],
+    "meta": {
+      "lineno": 909,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 51
+  },
+  {
+    "id": "Canvas#addConnection",
+    "longname": "Canvas#addConnection",
+    "name": "addConnection",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Adds a connection to the canvas",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Connection"
+          ]
+        },
+        "description": "to add to the diagram",
+        "name": "connection"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "parent"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "parentIndex"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection"
+          ]
+        },
+        "description": "the added connection"
+      }
+    ],
+    "meta": {
+      "lineno": 922,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 52
+  },
+  {
+    "id": "Canvas#_removeElement",
+    "longname": "Canvas#_removeElement",
+    "name": "_removeElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Internal remove element",
+    "memberof": "Canvas",
+    "access": "private",
+    "meta": {
+      "lineno": 932,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 53
+  },
+  {
+    "id": "Canvas#removeShape",
+    "longname": "Canvas#removeShape",
+    "name": "removeShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Removes a shape from the canvas",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Shape"
+          ]
+        },
+        "description": "or shape id to be removed",
+        "name": "shape"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the removed shape"
+      }
+    ],
+    "meta": {
+      "lineno": 969,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 54
+  },
+  {
+    "id": "Canvas#removeConnection",
+    "longname": "Canvas#removeConnection",
+    "name": "removeConnection",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Removes a connection from the canvas",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Connection"
+          ]
+        },
+        "description": "or connection id to be removed",
+        "name": "connection"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection"
+          ]
+        },
+        "description": "the removed connection"
+      }
+    ],
+    "meta": {
+      "lineno": 1003,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 57
+  },
+  {
+    "id": "Canvas#getGraphics",
+    "longname": "Canvas#getGraphics",
+    "name": "getGraphics",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return the graphical object underlaying a certain diagram element",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "description": "descriptor of the element",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": false,
+        "description": "whether to return the secondary connected element",
+        "name": "secondary"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 1038,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 60
+  },
+  {
+    "id": "Canvas#_changeViewbox",
+    "longname": "Canvas#_changeViewbox",
+    "name": "_changeViewbox",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Perform a viewbox update via a given change function.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "changeFn"
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 1050,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 61
+  },
+  {
+    "id": "Canvas#viewbox",
+    "longname": "Canvas#viewbox",
+    "name": "viewbox",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Gets or sets the view box of the canvas, i.e. the\narea that is currently displayed.\n\nThe getter may return a cached viewbox (if it is currently\nchanging). To force a recomputation, pass `false` as the first argument.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "description": "the new view box to set",
+        "name": "box"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "description": "the top left X coordinate of the canvas visible in view box",
+        "name": "box.x"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "description": "the top left Y coordinate of the canvas visible in view box",
+        "name": "box.y"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "description": "the visible width",
+        "name": "box.width"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "name": "box.height"
+      }
+    ],
+    "examples": [
+      "canvas.viewbox({ x: 100, y: 100, width: 500, height: 500 })\n\n// sets the visible area of the diagram to (100|100) -> (600|100)\n// and and scales it according to the diagram width\n\nconst viewbox = canvas.viewbox(); // pass `false` to force recomputing the box.\n\nconsole.log(viewbox);\n// {\n//   inner: Dimensions,\n//   outer: Dimensions,\n//   scale,\n//   x, y,\n//   width, height\n// }\n\n// if the current diagram is zoomed and scrolled, you may reset it to the\n// default zoom via this method, too:\n\nconst zoomedAndScrolledViewbox = canvas.viewbox();\n\ncanvas.viewbox({\n  x: 0,\n  y: 0,\n  width: zoomedAndScrolledViewbox.outer.width,\n  height: zoomedAndScrolledViewbox.outer.height\n});"
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the current view box"
+      }
+    ],
+    "meta": {
+      "lineno": 1118,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 62
+  },
+  {
+    "id": "Canvas#scroll",
+    "longname": "Canvas#scroll",
+    "name": "scroll",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Gets or sets the scroll of the canvas.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "description": "the new scroll to apply.",
+        "name": "delta"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "delta.dx"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "delta.dy"
+      }
+    ],
+    "meta": {
+      "lineno": 1190,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 63
+  },
+  {
+    "id": "Canvas#scrollToElement",
+    "longname": "Canvas#scrollToElement",
+    "name": "scrollToElement",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Scrolls the viewbox to contain the given element.\nOptionally specify a padding to be applied to the edges.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object",
+            "String"
+          ]
+        },
+        "optional": true,
+        "description": "the element to scroll to.",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object",
+            "Number"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": 100,
+        "description": "the padding to be applied. Can also specify top, bottom, left and right.",
+        "name": "padding"
+      }
+    ],
+    "meta": {
+      "lineno": 1216,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 64
+  },
+  {
+    "id": "Canvas#zoom",
+    "longname": "Canvas#zoom",
+    "name": "zoom",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Gets or sets the current zoom of the canvas, optionally zooming\nto the specified position.\n\nThe getter may return a cached zoom level. Call it with `false` as\nthe first argument to force recomputation of the current level.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "number"
+          ]
+        },
+        "optional": true,
+        "description": "the new zoom level, either a number, i.e. 0.9,\n                                  or `fit-viewport` to adjust the size to fit the current viewport",
+        "name": "newScale"
+      },
+      {
+        "type": {
+          "names": [
+            "string",
+            "Point"
+          ]
+        },
+        "optional": true,
+        "description": "the reference point { x: .., y: ..} to zoom to, 'auto' to zoom into mid or null",
+        "name": "center"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "description": "the current scale"
+      }
+    ],
+    "meta": {
+      "lineno": 1294,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 65
+  },
+  {
+    "id": "Canvas#getSize",
+    "longname": "Canvas#getSize",
+    "name": "getSize",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Returns the size of the canvas",
+    "memberof": "Canvas",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Dimensions"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 1419,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 66
+  },
+  {
+    "id": "Canvas#getAbsoluteBBox",
+    "longname": "Canvas#getAbsoluteBBox",
+    "name": "getAbsoluteBBox",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return the absolute bounding box for the given element\n\nThe absolute bounding box may be used to display overlays in the\ncallers (browser) coordinate system rather than the zoomed in/out\ncanvas coordinates.",
+    "memberof": "Canvas",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "ElementDescriptor"
+          ]
+        },
+        "name": "element"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Bounds"
+          ]
+        },
+        "description": "the absolute bounding box"
+      }
+    ],
+    "meta": {
+      "lineno": 1437,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 67
+  },
+  {
+    "id": "Canvas#resized",
+    "longname": "Canvas#resized",
+    "name": "resized",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Fires an event in order other modules can react to the\ncanvas resizing",
+    "memberof": "Canvas",
+    "meta": {
+      "lineno": 1473,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 68
+  },
+  {
+    "id": "ElementFactory#createRoot",
+    "longname": "ElementFactory#createRoot",
+    "name": "createRoot",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create root element.",
+    "memberof": "ElementFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "attrs"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Root"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 25,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 71
+  },
+  {
+    "id": "ElementFactory#createLabel",
+    "longname": "ElementFactory#createLabel",
+    "name": "createLabel",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create label.",
+    "memberof": "ElementFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "attrs"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Label"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 36,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 72
+  },
+  {
+    "id": "ElementFactory#createShape",
+    "longname": "ElementFactory#createShape",
+    "name": "createShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create shape.",
+    "memberof": "ElementFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "attrs"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Shape"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 47,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 73
+  },
+  {
+    "id": "ElementFactory#createConnection",
+    "longname": "ElementFactory#createConnection",
+    "name": "createConnection",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create connection.",
+    "memberof": "ElementFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "attrs"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Connection"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 58,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 74
+  },
+  {
+    "id": "ElementFactory#create",
+    "longname": "ElementFactory#create",
+    "name": "create",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create a model element with the given type and\na number of pre-set attributes.",
+    "memberof": "ElementFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "type"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "attrs"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Base"
+          ]
+        },
+        "description": "the newly created model instance"
+      }
+    ],
+    "meta": {
+      "lineno": 71,
+      "filename": "ElementFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 75
+  },
+  {
+    "id": "ElementRegistry#add",
+    "longname": "ElementRegistry#add",
+    "name": "add",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Register a pair of (element, gfx, (secondaryGfx)).",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "name": "gfx"
+      },
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "optional": true,
+        "description": "optional other element to register, too",
+        "name": "secondaryGfx"
+      }
+    ],
+    "meta": {
+      "lineno": 28,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 78
+  },
+  {
+    "id": "ElementRegistry#remove",
+    "longname": "ElementRegistry#remove",
+    "name": "remove",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Removes an element from the registry.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      }
+    ],
+    "meta": {
+      "lineno": 49,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 79
+  },
+  {
+    "id": "ElementRegistry#updateId",
+    "longname": "ElementRegistry#updateId",
+    "name": "updateId",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Update the id of an element",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "newId"
+      }
+    ],
+    "meta": {
+      "lineno": 73,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 80
+  },
+  {
+    "id": "ElementRegistry#updateGraphics",
+    "longname": "ElementRegistry#updateGraphics",
+    "name": "updateGraphics",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Update the graphics of an element",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "name": "gfx"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": false,
+        "description": "whether to update the secondary connected element",
+        "name": "secondary"
+      }
+    ],
+    "meta": {
+      "lineno": 103,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 81
+  },
+  {
+    "id": "ElementRegistry#get",
+    "longname": "ElementRegistry#get",
+    "name": "get",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return the model element for a given id or graphics.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "SVGElement"
+          ]
+        },
+        "description": "for selecting the element",
+        "name": "filter"
+      }
+    ],
+    "examples": [
+      "elementRegistry.get('SomeElementId_1');\nelementRegistry.get(gfx);"
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 134,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 82
+  },
+  {
+    "id": "ElementRegistry#filter",
+    "longname": "ElementRegistry#filter",
+    "name": "filter",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return all elements that match a given filter function.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "fn"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Array.<djs.model.Base>"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 154,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 83
+  },
+  {
+    "id": "ElementRegistry#find",
+    "longname": "ElementRegistry#find",
+    "name": "find",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return the first element that satisfies the provided testing function.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "fn"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 174,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 84
+  },
+  {
+    "id": "ElementRegistry#getAll",
+    "longname": "ElementRegistry#getAll",
+    "name": "getAll",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return all rendered model elements.",
+    "memberof": "ElementRegistry",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Array.<djs.model.Base>"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 195,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 85
+  },
+  {
+    "id": "ElementRegistry#forEach",
+    "longname": "ElementRegistry#forEach",
+    "name": "forEach",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Iterate over all diagram elements.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "fn"
+      }
+    ],
+    "meta": {
+      "lineno": 204,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 86
+  },
+  {
+    "id": "ElementRegistry#getGraphics",
+    "longname": "ElementRegistry#getGraphics",
+    "name": "getGraphics",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Return the graphical representation of an element or its id.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "djs.model.Base"
+          ]
+        },
+        "name": "filter"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": false,
+        "description": "whether to return the secondary connected element",
+        "name": "secondary"
+      }
+    ],
+    "examples": [
+      "elementRegistry.getGraphics('SomeElementId_1');\nelementRegistry.getGraphics(rootElement); // <g ...>\n\nelementRegistry.getGraphics(rootElement, true); // <svg ...>"
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 232,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 87
+  },
+  {
+    "id": "ElementRegistry#_validateId",
+    "longname": "ElementRegistry#_validateId",
+    "name": "_validateId",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Validate the suitability of the given id and signals a problem\nwith an exception.",
+    "memberof": "ElementRegistry",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "id"
+      }
+    ],
+    "access": "private",
+    "exceptions": [
+      {
+        "type": {
+          "names": [
+            "Error"
+          ]
+        },
+        "description": "if id is empty or already assigned"
+      }
+    ],
+    "meta": {
+      "lineno": 249,
+      "filename": "ElementRegistry.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 88
+  },
+  {
+    "id": "EventBus#on",
+    "longname": "EventBus#on",
+    "name": "on",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Register an event listener for events with the given name.\n\nThe callback will be invoked with `event, ...additionalArguments`\nthat have been passed to {@link EventBus#fire}.\n\nReturning false from a listener will prevent the events default action\n(if any is specified). To stop an event from being processed further in\nother listeners execute {@link Event#stopPropagation}.\n\nReturning anything but `undefined` from a listener will stop the listener propagation.",
+    "memberof": "EventBus",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "Array.<string>"
+          ]
+        },
+        "name": "events"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": 1000,
+        "description": "the priority in which this listener is called, larger is higher",
+        "name": "priority"
+      },
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "name": "callback"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "description": "Pass context (`this`) to the callback",
+        "name": "that"
+      }
+    ],
+    "meta": {
+      "lineno": 128,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 91
+  },
+  {
+    "id": "EventBus#once",
+    "longname": "EventBus#once",
+    "name": "once",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Register an event listener that is executed only once.",
+    "memberof": "EventBus",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "the event name to register for",
+        "name": "event"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": 1000,
+        "description": "the priority in which this listener is called, larger is higher",
+        "name": "priority"
+      },
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "description": "the callback to execute",
+        "name": "callback"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "description": "Pass context (`this`) to the callback",
+        "name": "that"
+      }
+    ],
+    "meta": {
+      "lineno": 173,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 92
+  },
+  {
+    "id": "EventBus#off",
+    "longname": "EventBus#off",
+    "name": "off",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Removes event listeners by event and callback.\n\nIf no callback is given, all listeners for a given event name are being removed.",
+    "memberof": "EventBus",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string",
+            "Array.<string>"
+          ]
+        },
+        "name": "events"
+      },
+      {
+        "type": {
+          "names": [
+            "function"
+          ]
+        },
+        "optional": true,
+        "name": "callback"
+      }
+    ],
+    "meta": {
+      "lineno": 213,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 93
+  },
+  {
+    "id": "EventBus#createEvent",
+    "longname": "EventBus#createEvent",
+    "name": "createEvent",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create an EventBus event.",
+    "memberof": "EventBus",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "data"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "event, recognized by the eventBus"
+      }
+    ],
+    "meta": {
+      "lineno": 233,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 94
+  },
+  {
+    "id": "EventBus#fire",
+    "longname": "EventBus#fire",
+    "name": "fire",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Fires a named event.",
+    "memberof": "EventBus",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "optional": true,
+        "description": "the optional event name",
+        "name": "name"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "description": "the event object",
+        "name": "event"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "variable": true,
+        "description": "arguments to be passed to the callback functions",
+        "name": "additional"
+      }
+    ],
+    "examples": [
+      "// fire event by name\nevents.fire('foo');\n\n// fire event object with nested type\nvar event = { type: 'foo' };\nevents.fire(event);\n\n// fire event with explicit type\nvar event = { x: 10, y: 20 };\nevents.fire('element.moved', event);\n\n// pass additional arguments to the event\nevents.on('foo', function(event, bar) {\n  alert(bar);\n});\n\nevents.fire({ type: 'foo' }, 'I am bar!');"
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "description": "the events return value, if specified or false if the\n                  default action was prevented by listeners"
+      }
+    ],
+    "meta": {
+      "lineno": 272,
+      "filename": "EventBus.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 95
+  },
+  {
+    "id": "GraphicsFactory#_clear",
+    "longname": "GraphicsFactory#_clear",
+    "name": "_clear",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Clears the graphical representation of the element and returns the\ncleared visual (the <g class=\"djs-visual\" /> element).",
+    "memberof": "GraphicsFactory",
+    "access": "private",
+    "meta": {
+      "lineno": 73,
+      "filename": "GraphicsFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 100
+  },
+  {
+    "id": "GraphicsFactory#_createContainer",
+    "longname": "GraphicsFactory#_createContainer",
+    "name": "_createContainer",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Creates a gfx container for shapes and connections\n\nThe layout is as follows:\n\n<g class=\"djs-group\">\n\n  <!-- the gfx -->\n  <g class=\"djs-element djs-(shape|connection|frame)\">\n    <g class=\"djs-visual\">\n      <!-- the renderer draws in here -->\n    </g>\n\n    <!-- extensions (overlays, click box, ...) goes here\n  </g>\n\n  <!-- the gfx child nodes -->\n  <g class=\"djs-children\"></g>\n</g>",
+    "memberof": "GraphicsFactory",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "the type of the element, i.e. shape | connection",
+        "name": "type"
+      },
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "optional": true,
+        "name": "childrenGfx"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "description": "position to create container in parent",
+        "name": "parentIndex"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "description": "is frame element",
+        "name": "isFrame"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        }
+      }
+    ],
+    "access": "private",
+    "meta": {
+      "lineno": 110,
+      "filename": "GraphicsFactory.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 101
+  },
+  {
+    "id": "Modeling#registerHandlers",
+    "longname": "Modeling#registerHandlers",
+    "name": "registerHandlers",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Register handlers with the command stack",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "CommandStack"
+          ]
+        },
+        "name": "commandStack"
+      }
+    ],
+    "meta": {
+      "lineno": 102,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 104
+  },
+  {
+    "id": "Modeling#moveShape",
+    "longname": "Modeling#moveShape",
+    "name": "moveShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Move shape.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Shape"
+          ]
+        },
+        "name": "shape"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "delta"
+      },
+      {
+        "type": {
+          "names": [
+            "Shape"
+          ]
+        },
+        "name": "newParent"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "name": "newParentIndex"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "hints"
+      }
+    ],
+    "meta": {
+      "lineno": 120,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 105
+  },
+  {
+    "id": "Modeling#updateAttachment",
+    "longname": "Modeling#updateAttachment",
+    "name": "updateAttachment",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Update the attachment of the given shape.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.mode.Base"
+          ]
+        },
+        "name": "shape"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "newHost"
+      }
+    ],
+    "meta": {
+      "lineno": 145,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 106
+  },
+  {
+    "id": "Modeling#moveElements",
+    "longname": "Modeling#moveElements",
+    "name": "moveElements",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Move a number of shapes to a new target, either setting it as\nthe new parent or attaching it.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Array.<djs.mode.Base>"
+          ]
+        },
+        "name": "shapes"
+      },
+      {
+        "type": {
+          "names": [
+            "Point"
+          ]
+        },
+        "name": "delta"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "target"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "name": "hints"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "defaultvalue": false,
+        "name": "hints.attach"
+      }
+    ],
+    "meta": {
+      "lineno": 165,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 107
+  },
+  {
+    "id": "Modeling#createConnection",
+    "longname": "Modeling#createConnection",
+    "name": "createConnection",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create connection.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "name": "target"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "name": "parentIndex"
+      },
+      {
+        "type": {
+          "names": [
+            "Object",
+            "djs.model.Connection"
+          ]
+        },
+        "name": "connection"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "name": "parent"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "name": "hints"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection"
+          ]
+        },
+        "description": "the created connection."
+      }
+    ],
+    "meta": {
+      "lineno": 236,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 108
+  },
+  {
+    "id": "Modeling#createShape",
+    "longname": "Modeling#createShape",
+    "name": "createShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Create a shape at the specified position.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape",
+            "Object"
+          ]
+        },
+        "name": "shape"
+      },
+      {
+        "type": {
+          "names": [
+            "Point"
+          ]
+        },
+        "name": "position"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape",
+            "djs.model.Root"
+          ]
+        },
+        "name": "target"
+      },
+      {
+        "type": {
+          "names": [
+            "number"
+          ]
+        },
+        "optional": true,
+        "description": "position in parents children list",
+        "name": "parentIndex"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "name": "hints"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "description": "whether to attach to target or become a child",
+        "name": "hints.attach"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the created shape"
+      }
+    ],
+    "meta": {
+      "lineno": 274,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 109
+  },
+  {
+    "id": "Modeling#appendShape",
+    "longname": "Modeling#appendShape",
+    "name": "appendShape",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Append shape to given source, drawing a connection\nbetween source and the newly created shape.",
+    "memberof": "Modeling",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "name": "source"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape",
+            "Object"
+          ]
+        },
+        "name": "shape"
+      },
+      {
+        "type": {
+          "names": [
+            "Point"
+          ]
+        },
+        "name": "position"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "name": "target"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "optional": true,
+        "name": "hints"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "optional": true,
+        "name": "hints.attach"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection",
+            "Object"
+          ]
+        },
+        "optional": true,
+        "name": "hints.connection"
+      },
+      {
+        "type": {
+          "names": [
+            "djs.model.Base"
+          ]
+        },
+        "optional": true,
+        "name": "hints.connectionParent"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the newly created shape"
+      }
+    ],
+    "meta": {
+      "lineno": 369,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\features\\modeling"
+    },
+    "order": 110
+  },
+  {
+    "id": "Modeling#makeCollaboration",
+    "longname": "Modeling#makeCollaboration",
+    "name": "makeCollaboration",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Transform the current diagram into a collaboration.",
+    "memberof": "Modeling",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Root"
+          ]
+        },
+        "description": "the new root element"
+      }
+    ],
+    "meta": {
+      "lineno": 141,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\bpmn-js\\lib\\features\\modeling"
+    },
+    "order": 113
+  },
+  {
+    "id": "Modeling#makeProcess",
+    "longname": "Modeling#makeProcess",
+    "name": "makeProcess",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Transform the current diagram into a process.",
+    "memberof": "Modeling",
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Root"
+          ]
+        },
+        "description": "the new root element"
+      }
+    ],
+    "meta": {
+      "lineno": 169,
+      "filename": "Modeling.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\bpmn-js\\lib\\features\\modeling"
+    },
+    "order": 114
+  },
+  {
+    "id": "Canvas.canvas.event:init",
+    "longname": "Canvas.canvas.event:init",
+    "name": "init",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that the canvas is ready to be drawn on.",
+    "memberof": "Canvas.canvas",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "description": "the created svg element",
+        "name": "svg"
+      },
+      {
+        "type": {
+          "names": [
+            "SVGElement"
+          ]
+        },
+        "description": "the direct parent of diagram elements and shapes",
+        "name": "viewport"
+      }
+    ],
+    "meta": {
+      "lineno": 190,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 28
+  },
+  {
+    "id": "element.marker.event:update",
+    "longname": "element.marker.event:update",
+    "name": "update",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that a marker has been updated for an element",
+    "memberof": "element.marker",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Element"
+          ]
+        },
+        "description": "the shape",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the graphical representation of the shape",
+        "name": "gfx"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "name": "marker"
+      },
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "description": "true if the marker was added, false if it got removed",
+        "name": "add"
+      }
+    ],
+    "meta": {
+      "lineno": 546,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 41
+  },
+  {
+    "id": "Canvas.shape.event:remove",
+    "longname": "Canvas.shape.event:remove",
+    "name": "remove",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that a shape is about to be removed from the canvas.",
+    "memberof": "Canvas.shape",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the shape descriptor",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the graphical representation of the shape",
+        "name": "gfx"
+      }
+    ],
+    "meta": {
+      "lineno": 971,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 55
+  },
+  {
+    "id": "Canvas.shape.event:removed",
+    "longname": "Canvas.shape.event:removed",
+    "name": "removed",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that a shape has been removed from the canvas.",
+    "memberof": "Canvas.shape",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Shape"
+          ]
+        },
+        "description": "the shape descriptor",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the graphical representation of the shape",
+        "name": "gfx"
+      }
+    ],
+    "meta": {
+      "lineno": 982,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 56
+  },
+  {
+    "id": "Canvas.connection.event:remove",
+    "longname": "Canvas.connection.event:remove",
+    "name": "remove",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that a connection is about to be removed from the canvas.",
+    "memberof": "Canvas.connection",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection"
+          ]
+        },
+        "description": "the connection descriptor",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the graphical representation of the connection",
+        "name": "gfx"
+      }
+    ],
+    "meta": {
+      "lineno": 1005,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 58
+  },
+  {
+    "id": "Canvas.connection.event:removed",
+    "longname": "Canvas.connection.event:removed",
+    "name": "removed",
+    "kind": "event",
+    "scope": "static",
+    "description": "An event indicating that a connection has been removed from the canvas.",
+    "memberof": "Canvas.connection",
+    "type": {
+      "names": [
+        "Object"
+      ]
+    },
+    "properties": [
+      {
+        "type": {
+          "names": [
+            "djs.model.Connection"
+          ]
+        },
+        "description": "the connection descriptor",
+        "name": "element"
+      },
+      {
+        "type": {
+          "names": [
+            "Object"
+          ]
+        },
+        "description": "the graphical representation of the connection",
+        "name": "gfx"
+      }
+    ],
+    "meta": {
+      "lineno": 1016,
+      "filename": "Canvas.js",
+      "path": "C:\\workspace\\bpmn-io\\docs.bpmn.io\\node_modules\\diagram-js\\lib\\core"
+    },
+    "order": 59
+  }
+]

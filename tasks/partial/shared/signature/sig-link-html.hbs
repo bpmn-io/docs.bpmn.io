@@ -1,0 +1,16 @@
+{{#if name}}{{#sig no-gfm=true ~}}
+{{{@depOpen}~}}
+{{#if category}}<code class="bpmn-io-category">{{category}}</code> {{/if~}}
+{{#if variation}}<code class="bpmn-io-variation">{{variation}}</code> {{/if~}}
+<a href="#{{{anchorName}}}">
+{{~{@codeOpen}~}}
+{{#if @prefix}}{{@prefix}} {{/if~}}
+{{@accessSymbol}}{{#if (isEvent)}}"{{{name}}}"{{else}}{{{name}}}{{/if~}}
+{{~#if @methodSign}}{{#if (isEvent)}} {{@methodSign}}{{else}}{{@methodSign}}{{/if}}{{/if~}}
+{{{@codeClose}~}}
+</a>
+{{~#if @returnSymbol}} {{@returnSymbol}}{{/if~}}
+{{#if @returnTypes}} {{>linked-type-list types=@returnTypes html=true delimiter=" | " }}{{/if~}}
+{{#if @suffix}} {{@suffix}}{{/if~}}
+{{{@depClose}~}}
+{{~/sig}}{{/if~}}

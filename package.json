@@ -12,23 +12,26 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "api-reference": "jsdoc2md --template template.hbs --files node_modules/diagram-js/lib/core/EventBus.js > docs/api.md"
+    "api-reference": "node tasks/create-api-reference.js",
+    "api-reference:watch": "nodemon --watch tasks tasks/create-api-reference.js"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.6",
     "@docusaurus/preset-classic": "2.0.0-beta.6",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^5.5.0",
+    "better-docs": "^2.7.2",
+    "bpmn-js": "^10.3.0",
     "clsx": "^1.1.1",
+    "diagram-js": "github:bpmn-io/diagram-js",
     "file-loader": "^6.2.0",
+    "handlebars": "^4.7.7",
+    "jsdoc-to-markdown": "^7.1.1",
+    "jsdoc-tsimport-plugin": "^1.0.5",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "url-loader": "^4.1.1"
-  },
-  "devDependencies": {
-    "diagram-js": "github:bpmn-io/diagram-js",
-    "jsdoc-to-markdown": "^7.1.1"
   },
   "browserslist": {
     "production": [

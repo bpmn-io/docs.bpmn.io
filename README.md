@@ -1,3 +1,5 @@
+> The website is not published yet. It is still in WIP stage.
+
 # docs.bpmn.io :notebook:
 Welcome to docs.bpmn.io. This repository contains documentation for:
 
